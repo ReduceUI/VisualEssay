@@ -1,0 +1,265 @@
+/* 
+Color pallete. This section defines variables for the color pallete,
+so that we can refer to particular colors by name instead of hexadecimal values.
+This is applied to the 'root' psuedo-element, which just means that these color
+variables are available to be used anywhere in our html document
+*/
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+	--colour1: #22aaa1;
+	--colour2: #4ce0d2;
+}
+
+/* Defines the main container size, we are limiting to 72em max and centring in the viewport */
+.main-container {
+    max-width: 72em;
+    margin: 0 auto;
+    font-family: Inter;
+    color: var(--black);
+
+}
+
+/* Here we define the aspects of style of our elements other than their grid layout */
+.banner {
+	margin: 1em;
+    background-color: var(--colour1);
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    border-radius: 3.125em;
+	
+}
+
+.banner-title {
+    text-align: center;
+    font-size: 3em;
+
+}
+
+/* The main block class for the page */
+.info-block {
+    margin: 1em;
+    background-color: var(--colour2);
+	padding: 1.25em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    text-align: center;
+    border-radius: 3.125em;
+    align-items: center;
+    
+}
+
+/* This is the source material reference list at the end of the page */
+#infoblock4 {
+    text-align: left;
+}
+
+.block-text {
+    padding-bottom: .5em;
+    font-size: 3em;
+}
+
+.image-group {
+    border-radius: inherit;
+}
+
+
+.block-image {
+    max-height: 33.75em;
+    width: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+/* Assigning divisions a grid area name */
+#banner {grid-area: bn}
+#infoblock1 {grid-area: ib1}
+#blocktext1 {grid-area: bt1}
+#blockimage1 {grid-area: bi1}
+
+#infoblock2 {grid-area: ib2}
+#blocktext2 {grid-area: bt2}
+#blockimage2 {grid-area: bi2}
+#blockimage3 {grid-area: bi3}
+#blockimage4 {grid-area: bi4}
+
+#infoblock3 {grid-area: ib3}
+#blocktext3 {grid-area: bt3}
+#blockimage5 {grid-area: bi5}
+#blockimage6 {grid-area: bi6}
+#blockimage7 {grid-area: bi7}
+
+#infoblock4 {grid-area: ib4}
+
+
+/* Use a flexible layout grid */
+.main-container {
+    display: grid;
+    column-gap: 1em;
+}
+  
+/* 
+Responsive Layout breakpoints. We start 'mobile-first' i.e. we define how the layout should look
+for the smallest screen sizes. In this case we want a single column that spans the main container.
+Because this CSS definition comes first, it will apply by default. Then we override it below with 
+media queries for progressively bigger screen widths
+*/
+.main-container {
+    /* TODO: setup the grid-template for mobile phone layout */
+    grid-template:
+            "bn bn bn bn"
+            "ib1 ib1 ib1 ib1"
+            "ib2 ib2 ib2 ib2"
+            "ib3 ib3 ib3 ib3"
+            "ib4 ib4 ib4 ib4"
+
+
+}
+
+@media (min-width: 52em) {
+    .main-container {
+        grid-template:
+            "bn bn bn bn"
+            "ib1 ib1 ib1 ib1"
+            "ib2 ib2 ib2 ib2"
+            "ib3 ib3 ib3 ib3"
+            "ib4 ib4 ib4 ib4"
+    }
+
+    #imagegroup1 {
+        display: grid;
+        column-gap: 1em;
+        grid-template:
+            "bi2 bi2 . . . . . ." 
+            ". . . . . . . ."
+            ". . . . . . bi4 bi4" 
+    }
+
+    #blockimage3 {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1; 
+
+    }
+    
+    #blockimage2 {
+        position: relative;
+        bottom: 0em; 
+        left: 0em;
+        z-index: 1; /* Ensure overlay images are on top */
+        width: 16em;
+        height: 16em;
+    }
+
+    #blockimage4 {
+        position: relative;
+        top: 0em;
+        left: 0em;
+        z-index: 1;
+        width: 16em;
+        height: 16em;
+    }
+
+    #imagegroup2 {
+        display: grid;
+        column-gap: 1em;
+        grid-template:
+            ". . . . bi6 bi6 bi7 bi7" 
+            ". . . . . . bi7 bi7"
+            ". . . . . . . ." 
+    }
+
+    #blockimage5 {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1; 
+
+    }
+    
+    #blockimage6 {
+        position: relative;
+        bottom: 0em; 
+        left: 0em;
+        z-index: 1; /* Ensure overlay images are on top */
+        width: 16em;
+        height: 16em;
+    }
+
+    #blockimage7 {
+        position: relative;
+        bottom: -8em;
+        left: 0em;
+        z-index: 1;
+        width: 16em;
+        height: 16em;
+    }
+}
+
+@media (min-width: 75em) {
+    .main-container {
+        grid-template:
+            "bn bn bn bn bn bn bn  bn ib1 ib1 ib1 ib1" minmax(8em, 32em)
+            ". . . . . . . . ib1 ib1 ib1 ib1" minmax(8em, auto)
+            ". . ib2 ib2 ib2 ib2 ib2 ib2 ib2 ib2 ib2 ." minmax(8em, auto)
+            "ib3 ib3 ib3 ib3 ib3 ib3 ib3 ib3 ib3 ib3 ib3 ib3" minmax(8em, auto)
+            ". . . . ib4 ib4 ib4 ib4 ib4 ib4 ib4 ib4" minmax(8em, auto)
+    }
+/* This is the Banner */
+    .block-image {
+        min-height: 100%;
+    }
+
+    #blockimage1 {
+        min-height: 33.75em
+    }
+
+/* This is the first story */
+    #infoblock2 {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #imagegroup1 {
+        
+        display: grid;
+        column-gap: 1em;
+        grid-template:
+            "bi2 bi2 bi2 bi2 bi2 bi2 bi4 bi4 bi4 bi4 bi4 bi4" minmax(8em, auto)
+            "bi2 bi2 bi2 bi2 bi2 bi2 bi4 bi4 bi4 bi4 bi4 bi4" minmax(8em, auto)
+            "bi2 bi2 bi2 bi2 bi2 bi2 bi4 bi4 bi4 bi4 bi4 bi4" minmax(8em, auto)
+            "bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3" minmax(8em, auto)
+            "bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3" minmax(8em, auto)
+            "bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3 bi3" minmax(8em, auto)
+    }
+
+    /* Override conflicting styles */
+    #blockimage2 {grid-area: bi2; width:100%}
+    #blockimage3 {grid-area: bi3}
+    #blockimage4 {grid-area: bi4; width:100%}
+
+
+/* This is the second story */
+    #infoblock3 {
+        display: flex;
+        flex-direction: column;
+    }
+    #imagegroup2 {
+        
+        display: grid;
+        column-gap: 1em;
+        grid-template:
+            "bi5 bi5 bi5 bi5 bi5 bi5 bi7 bi7 bi7 bi7 bi7 bi7" minmax(8em, auto)
+            "bi5 bi5 bi5 bi5 bi5 bi5 bi7 bi7 bi7 bi7 bi7 bi7" minmax(8em, auto)
+            "bi5 bi5 bi5 bi5 bi5 bi5 bi7 bi7 bi7 bi7 bi7 bi7" minmax(8em, auto)
+            "bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6" minmax(8em, auto)
+            "bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6" minmax(8em, auto)
+            "bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6 bi6" minmax(8em, auto)
+
+        }
+
+            /* Override conflicting styles */
+    #blockimage5 {grid-area: bi5; width:100%}
+    #blockimage6 {grid-area: bi6; width:100%}
+    #blockimage7 {grid-area: bi7; width:100%; bottom: 0em}
+    }
